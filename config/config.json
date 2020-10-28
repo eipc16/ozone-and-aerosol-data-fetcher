@@ -1,0 +1,82 @@
+{
+    "SentinelAPI": {
+        "credentials": {
+            "type": "file",
+            "path": "./config/sentinel_credentials.json"
+        },
+        "api_link": "https://s5phub.copernicus.eu/dhus",
+        "default": {
+            "time": {
+                "start": "2018-10-01",
+                "end": "2018-10-02"
+            },
+            "area": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [-9.5361328125, 37.792422407988575],
+                                [-7.789306640625, 37.792422407988575],
+                                [-7.789306640625, 39.55911824217184],
+                                [-9.5361328125, 39.55911824217184],
+                                [-9.5361328125, 37.792422407988575]
+                            ]
+                        ]
+                    }
+                }]
+            },
+            "platform_name": "Sentinel-5",
+            "product_type": "L2__CLOUD_"
+        }
+    },
+    "ModisAPI-MOD04_L2": {
+        "credentials": {
+            "type": "file",
+            "path": "./config/modis_credentials.json"
+        },
+        "defaults": {
+            "time": {
+                "start": "2018-10-01",
+                "end": "2018-10-03"
+            },
+            "box": {
+                "bottom_left": {
+                    "latitude": 37.792422407988575,
+                    "longitude": -9.5361328125
+                },
+                "top_right": {
+                    "latitude": 39.55911824217184,
+                    "longitude": -7.789306640625
+                }
+            },
+            "product_type": "MOD04_L2"
+        }
+    },
+    "ModisAPI-MOD04_3K": {
+        "credentials": {
+            "type": "file",
+            "path": "./config/modis_credentials.json"
+        },
+        "defaults": {
+            "time": {
+                "start": "2018-10-01",
+                "end": "2018-10-03"
+            },
+            "box": {
+                "bottom_left": {
+                    "latitude": 37.792422407988575,
+                    "longitude": -9.5361328125
+                },
+                "top_right": {
+                    "latitude": 39.55911824217184,
+                    "longitude": -7.789306640625
+                }
+            },
+            "product_type": "MOD04_3K"
+        }
+    }
+}

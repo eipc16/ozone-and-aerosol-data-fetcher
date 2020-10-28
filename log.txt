@@ -1,0 +1,10 @@
+Collecting GDAL
+  Using cached GDAL-3.1.3.tar.gz (593 kB)
+Building wheels for collected packages: GDAL
+  Building wheel for GDAL (setup.py): started
+  Building wheel for GDAL (setup.py): finished with status 'error'
+  Running setup.py clean for GDAL
+Failed to build GDAL
+Installing collected packages: GDAL
+    Running setup.py install for GDAL: started
+    Running setup.py install for GDAL: finished with status 'error'
