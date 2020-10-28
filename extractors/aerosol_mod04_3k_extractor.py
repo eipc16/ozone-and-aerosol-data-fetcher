@@ -5,7 +5,7 @@ from datetime import datetime
 
 class AerosolM0D043KExtractor(BaseModisExtractor):
     START_TIME = np.datetime64(datetime.strptime("1993-01-01 00:00:00.0", "%Y-%m-%d %H:%M:%S.%f"))
-    MIN_QA_FLAG = 2
+    MIN_QA_FLAG = 0
     LAND_FLAGS = {
         0: 'Ocean',
         1: 'Land',

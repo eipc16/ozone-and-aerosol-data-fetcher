@@ -5,7 +5,7 @@ from datetime import datetime
 
 class AerosolMOD04L2Extractor(BaseModisExtractor):
     START_TIME = np.datetime64(datetime.strptime("1993-01-01 00:00:00.0", "%Y-%m-%d %H:%M:%S.%f"))
-    MIN_QA_FLAG = 2
+    MIN_QA_FLAG = 0
     QUALITY_FLAGS = {
         0: 'Bad',
         1: 'Marginal',
