@@ -41,7 +41,7 @@
         "defaults": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-03"
+                "end": "2019-12-01"
             },
             "box": {
                 "bottom_left": {
@@ -64,7 +64,7 @@
         "defaults": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-03"
+                "end": "2019-12-01"
             },
             "box": {
                 "bottom_left": {
