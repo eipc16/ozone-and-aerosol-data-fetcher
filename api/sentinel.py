@@ -31,7 +31,7 @@ class Sentinel5P(API):
         latitude_range, longitude_range = self.get_coordinate_ranges(area_gjson)
         for i, date in enumerate(dates_by_month, 1):
             print(f'Start processing from {date[0]} to {date[1]}. Chunk: {i}/{len(dates_by_month)}')
-            self._download_internal(download_path, area_gjson, date_from, date_to, platform_name, product_type)
+            self._download_internal(download_path, area_gjson, date[0], date[1], platform_name, product_type)
             process_func(download_path, latitude_range, longitude_range)
 
     def download(self, 
@@ -62,6 +62,7 @@ class Sentinel5P(API):
             platformname=platform_name,
             producttype=product_type
         )
+        print(date_from, date_to)
         Path(download_path).mkdir(parents=True, exist_ok=True)
         for product in products:
             try:
