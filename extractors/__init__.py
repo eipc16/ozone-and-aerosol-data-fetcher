@@ -31,10 +31,10 @@ class BaseModisExtractor:
             if "solutions" in instructions:
                 for sol_key, sol_name in instructions['solutions'].items():
                     final_name = f'{col_name} ({sol_name}, {col_unit})'
-                    res[final_name] = transform_func([data_values[sol_key, index[0], index[1]] for index in matches_all_indexes])
+                    res[final_name] = transform_func([data_values[sol_key, index[0], index[1]] for index in matches_all_indexes], data.attributes())
                     
             else:
-                res[f'{col_name} ({col_unit})'] = transform_func([data_values[index[0], index[1]] for index in matches_all_indexes])
+                res[f'{col_name} ({col_unit})'] = transform_func([data_values[index[0], index[1]] for index in matches_all_indexes], data.attributes())
             
         print(f'Finished processing... {name}')
         return len(matches_all_indexes), res
