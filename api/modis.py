@@ -31,18 +31,21 @@ class Modis(API):
                             box=None, 
                             date_from=None, 
                             date_to=None, 
-                            product_type=None):
+                            product_type=None,
+                            collection=None):
         box = API.get_default_if_empty(box, self._get_default_box())
         date_from = API.get_default_if_empty(date_from, self._defaults['time']['start'])
         date_to = API.get_default_if_empty(date_to, self._defaults['time']['end'])
         product_name = API.get_default_if_empty(product_type, self._defaults['product_type'])
+        collection = API.get_default_if_empty(collection, self._defaults['collection'])
         dates_by_month = API.split_by_month(date_from, date_to)
         print(date_from, date_to)
         for i, date in enumerate(dates_by_month, 1):
             print(f'Start processing from {date[0]} to {date[1]}. Chunk: {i}/{len(dates_by_month)}')
             # start, end = API.get_begin_and_end_of_day(date[0], date[1])
             start, end = date[0], date[1]
-            north, south, east, west = self._download_internal(download_path, box=box, date_from=start, date_to=end, product_type=product_name)
+            north, south, east, west = self._download_internal(download_path, 
+                    box=box, date_from=start, date_to=end, product_type=product_name, collection=collection)
             process_func(download_path, (south, north), (west, east))
 
     def download(self, 
@@ -50,12 +53,14 @@ class Modis(API):
                     box=None, 
                     date_from=None, 
                     date_to=None, 
-                    product_type=None):
+                    product_type=None,
+                    collection=None):
         box = API.get_default_if_empty(box, self._get_default_box())
         date_from = API.get_default_if_empty(date_from, self._defaults['time']['start'])
         date_to = API.get_default_if_empty(date_to, self._defaults['time']['end'])
         product_name = API.get_default_if_empty(product_type, self._defaults['product_type'])
-        return self._download_internal(download_path, box, date_from, date_to, product_name)
+        collection = API.get_default_if_empty(collection, self._defaults['collection'])
+        return self._download_internal(download_path, box, date_from, date_to, product_name, collection)
 
 
     def _download_internal(self, 
@@ -63,7 +68,8 @@ class Modis(API):
                             box, 
                             date_from, 
                             date_to, 
-                            product_type):
+                            product_type,
+                            collection):
         north = box[0] if box[0] > box[2] else box[2]
         south = box[2] if box[2] < box[0] else box[0]
         west = box[1] if box[1] < box[3] else box[3]
@@ -78,11 +84,13 @@ class Modis(API):
                 west = box[1] if box[1] < box[3] else box[3],
                 east = box[3] if box[3] > box[1] else box[1],
                 coordsOrTiles='coords',
-                collection=61
+                collection=collection
         )
         print(f'Found: {len(file_ids)} files')
-        if len(file_ids) > 0:
-            Path(download_path).mkdir(parents=True, exist_ok=True)
+        print(f'URLS: {file_ids}')
+        if len(file_ids) < 1 or (len(file_ids) == 1 and file_ids[0] == "No results"):
+            raise Exception('No results found')
+        Path(download_path).mkdir(parents=True, exist_ok=True)
         file_urls = self._m.getFileUrls(",".join(file_ids))
         filename_by_url = dict([(url, self._get_full_path(download_path, url)) for url in file_urls])
         for url, dest in filename_by_url.items():

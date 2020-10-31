@@ -41,7 +41,7 @@
         "defaults": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2019-12-01"
+                "end": "2018-10-02"
             },
             "box": {
                 "bottom_left": {
@@ -53,7 +53,8 @@
                     "longitude": -7.789306640625
                 }
             },
-            "product_type": "MOD04_L2"
+            "product_type": "MOD04_L2",
+            "collection": 61
         }
     },
     "ModisAPI-MOD04_3K": {
@@ -76,7 +77,32 @@
                     "longitude": -7.789306640625
                 }
             },
-            "product_type": "MOD04_3K"
+            "product_type": "MOD04_3K",
+            "collection": 61
+        }
+    },
+    "ModisAPI-MCD19A2": {
+        "credentials": {
+            "type": "file",
+            "path": "./config/modis_credentials.json"
+        },
+        "defaults": {
+            "time": {
+                "start": "2018-10-01",
+                "end": "2018-10-02"
+            },
+            "box": {
+                "bottom_left": {
+                    "latitude": 37.792422407988575,
+                    "longitude": -9.5361328125
+                },
+                "top_right": {
+                    "latitude": 39.55911824217184,
+                    "longitude": -7.789306640625
+                }
+            },
+            "product_type": "MCD19A2",
+            "collection": 6
         }
     }
 }
