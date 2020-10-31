@@ -152,3 +152,6 @@ results.json
 .ipynb_checkpoints
 *_test.csv
 *.ipynb
+
+
+*.mail

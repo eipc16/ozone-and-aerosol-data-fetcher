@@ -63,7 +63,11 @@ class Sentinel5P(API):
             producttype=product_type
         )
         Path(download_path).mkdir(parents=True, exist_ok=True)
-        self._api.download_all(products, directory_path=download_path)
+        for product in products:
+            try:
+                self._api.download(product, directory_path=download_path)
+            except:
+                print(f'Could not download product with id: {product}')
 
     def _parse_date(self, date_from, date_to):
         print(date_from, date_to)
