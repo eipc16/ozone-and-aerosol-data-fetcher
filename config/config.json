@@ -1,5 +1,5 @@
 {
-    "SentinelAPI": {
+    "SentinelAPI-O3": {
         "credentials": {
             "type": "file",
             "path": "./config/sentinel_credentials.json"
@@ -8,7 +8,7 @@
         "default": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-02"
+                "end": "2018-10-05"
             },
             "area": {
                 "type": "FeatureCollection",
@@ -30,7 +30,7 @@
                 }]
             },
             "platform_name": "Sentinel-5",
-            "product_type": "L2__CLOUD_"
+            "product_type": "L2__O3____"
         }
     },
     "ModisAPI-MOD04_L2": {
@@ -103,6 +103,30 @@
             },
             "product_type": "MCD19A2",
             "collection": 6
+        }
+    },
+    "ModisAPI-MYD08_M3": {
+        "credentials": {
+            "type": "file",
+            "path": "./config/modis_credentials.json"
+        },
+        "defaults": {
+            "time": {
+                "start": "2018-10-01",
+                "end": "2018-10-02"
+            },
+            "box": {
+                "bottom_left": {
+                    "latitude": 37.792422407988575,
+                    "longitude": -9.5361328125
+                },
+                "top_right": {
+                    "latitude": 39.55911824217184,
+                    "longitude": -7.789306640625
+                }
+            },
+            "product_type": "MYD08_M3",
+            "collection": 61
         }
     }
 }

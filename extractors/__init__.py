@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import os
 import numpy as np
+import xarray as xr
 from pyhdf.SD import *
 
 class BaseModisExtractor:
@@ -66,3 +67,47 @@ class BaseModisExtractor:
                 if file.endswith('.hdf'):
                     os.remove(full_path)
         print(f'All results saved to {out_file}')
+
+class BaseCopernicusExtractor:
+
+    def _process_file(self, dataset, latitude_range, longitude_range):
+        raise NotImplementedError('This method should be implemented by concrete extractor')
+
+    def process_files(self, dirname, out_file, latitude_range, longitude_range, csv_separator=";", delete_after=False):
+        file_index = 1
+
+        for file in os.listdir(dirname):
+            full_path = os.path.join(dirname, file)
+            if os.path.isfile(full_path) and full_path.endswith(".zip"):
+                new_name = full_path.replace('.zip', '.nc')
+                os.rename(full_path, new_name)
+
+        for file in os.listdir(dirname):
+            full_path = os.path.join(dirname, file)
+            if file.endswith('.nc'):
+                print(f'Processing file... {file_index} (Path: {full_path})')
+                dataset = xr.open_dataset(full_path, group='PRODUCT')
+                data, labels = self._process_file(dataset, latitude_range, longitude_range)
+                if len(data) == 0:
+                    print(f'No matching data found in... {file_index} (Path: {full_path})')
+                else:
+                    BaseCopernicusExtractor.write_to_csv(out_file, csv_separator, labels, data)
+                    print(f'Processing finished for file... {file_index} (Path: {full_path})')
+        if delete_after:
+            for file in os.listdir(dirname):
+                full_path = os.path.join(dirname, file)
+                if file.endswith('.nc'):
+                    os.remove(full_path)
+        print(f'All results saved to {out_file}')
+    
+
+    @staticmethod
+    def write_to_csv(outfile, csv_separator, labels, data):
+        with open(outfile, mode='w') as f:
+            f.write(csv_separator.join(labels) + "\n")
+            data = [BaseCopernicusExtractor.map_json_to_csv(obj, labels, csv_separator) for obj in data]
+            f.write("\n".join(data))
+
+    @staticmethod
+    def map_json_to_csv(json_object, labels, csv_separator):
+        return csv_separator.join([str(json_object[label]) for label in labels])
