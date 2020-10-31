@@ -8,7 +8,7 @@
         "default": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-05"
+                "end": "2019-12-01"
             },
             "area": {
                 "type": "FeatureCollection",
@@ -41,7 +41,7 @@
         "defaults": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-02"
+                "end": "2019-12-01"
             },
             "box": {
                 "bottom_left": {
@@ -89,7 +89,7 @@
         "defaults": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-02"
+                "end": "2019-12-01"
             },
             "box": {
                 "bottom_left": {
@@ -113,7 +113,7 @@
         "defaults": {
             "time": {
                 "start": "2018-10-01",
-                "end": "2018-10-02"
+                "end": "2019-12-01"
             },
             "box": {
                 "bottom_left": {
