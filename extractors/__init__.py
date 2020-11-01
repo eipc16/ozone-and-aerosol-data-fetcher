@@ -103,7 +103,10 @@ class BaseCopernicusExtractor:
 
     @staticmethod
     def write_to_csv(outfile, csv_separator, labels, data):
-        with open(outfile, mode='w') as f:
+        if not os.path.isfile(outfile):
+            with open(outfile, mode='w') as f:
+                f.write(csv_separator.join(labels) + "\n")
+        with open(outfile, mode='a') as f:
             f.write(csv_separator.join(labels) + "\n")
             data = [BaseCopernicusExtractor.map_json_to_csv(obj, labels, csv_separator) for obj in data]
             f.write("\n".join(data))
